@@ -1,113 +1,167 @@
-import Image from "next/image";
+"use client";
+import React, { useEffect, useState } from 'react';
+import { ChevronUp, Mail, Github, Linkedin, Code, Database, Cloud, Server } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
+const skills = [
+  { name: 'Programming', icon: <Code className="h-6 w-6" />, description: 'Python, JavaScript, Java, C++, C#, PHP' },
+  { name: 'Web Dev', icon: <Code className="h-6 w-6" />, description: 'React, Angular, Node.js, Django, Flask' },
+  { name: 'Cloud', icon: <Cloud className="h-6 w-6" />, description: 'AWS, GCP, Azure' },
+  { name: 'Data', icon: <Database className="h-6 w-6" />, description: 'SQL, MongoDB, Spark, Hadoop' },
+];
+
+const experiences = [
+  { 
+    company: 'C-DAC, Meity, Govt. of India', 
+    role: 'Technical Officer (Scientist B - AISDG)', 
+    period: 'March 2022 – Present',
+    description: 'Led development of an award winning Gamified Learning application, a LMS system and Pilot Digital Twin project.'
+  },
+  { 
+    company: 'Amazon Web Services', 
+    role: 'CSA (Big Data)', 
+    period: 'Jan 2021 – Feb 2022',
+    description: 'Worked on AWS Big Data services, helping enterprise customers to optimally and efficently utilize AWS Big Data Resources'
+  },
+];
 
 export default function Home() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener('scroll', toggleVisibility);
+
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200">
+      <header className="bg-blue-600 text-white py-20 text-center">
+        <Avatar className="h-32 w-32 mx-auto mb-4">
+          <AvatarImage src="https://i.imgur.com/QK5g3tK.jpeg" alt="Ashutosh Jha" />
+          <AvatarFallback>AJ</AvatarFallback>
+        </Avatar>
+        <h1 className="text-4xl font-bold mb-2">Ashutosh Jha</h1>
+        <p className="text-xl">Software Development Engineer</p>
+        <div className="mt-6 flex justify-center space-x-4">
+          <Button variant="secondary" size="icon" asChild>
+            <a href="mailto:ashutosh201197@gmail.com" aria-label="Email">
+              <Mail className="h-5 w-5" />
+            </a>
+          </Button>
+          <Button variant="secondary" size="icon" asChild>
+            <a href="https://github.com/ashutosh2011" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <Github className="h-5 w-5" />
+            </a>
+          </Button>
+          <Button variant="secondary" size="icon" asChild>
+            <a href="https://www.linkedin.com/in/ashutosh-jha-582865172/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <Linkedin className="h-5 w-5" />
+            </a>
+          </Button>
         </div>
-      </div>
+      </header>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <main className="container mx-auto px-4 py-12">
+        <section className="mb-20">
+          <h2 className="text-3xl font-bold mb-6 text-center">About Me</h2>
+          <Card>
+            <CardContent className="pt-6">
+              <p className="text-lg text-center">
+                Versatile and accomplished Software Development Engineer with around 3.5 years of experience in developing and managing scalable applications across educational technology, cloud computing, and big data analytics. Committed to continuous learning and delivering cutting-edge solutions.
+              </p>
+            </CardContent>
+          </Card>
+        </section>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+        <section className="mb-20">
+          <h2 className="text-3xl font-bold mb-6 text-center">Skills</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {skills.map((skill, index) => (
+              <Card key={index}>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    {skill.icon}
+                    <span className="ml-2">{skill.name}</span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>{skill.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-20">
+          <h2 className="text-3xl font-bold mb-6 text-center">Experience</h2>
+          <div className="space-y-6">
+            {experiences.map((exp, index) => (
+              <Card key={index}>
+                <CardHeader>
+                  <CardTitle>{exp.company}</CardTitle>
+                  <CardDescription>{exp.role} | {exp.period}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p>{exp.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-20">
+          <h2 className="text-3xl font-bold mb-6 text-center">Project Spotlight</h2>
+          <Card className="overflow-hidden">
+            <CardHeader>
+              <CardTitle>ChatSight</CardTitle>
+              <CardDescription>WhatsApp Conversation Analyzer</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <img src="https://i.imgur.com/yc2xhpK.png" alt="ChatSight Preview" className="w-full h-64 object-cover rounded-md mb-4" />
+              <p>ChatSight is an innovative tool that analyzes WhatsApp conversations and provides fun, insightful statistics. Uncover patterns, track engagement, and gain a deeper understanding of your chat dynamics.</p>
+            </CardContent>
+            <CardFooter>
+              <Button asChild>
+                <a href="https://chatsight.ashuj.com" target="_blank" rel="noopener noreferrer">
+                  Visit ChatSight
+                </a>
+              </Button>
+            </CardFooter>
+          </Card>
+        </section>
+      </main>
+
+      <footer className="bg-blue-600 text-white py-8 text-center">
+        <p>&copy; 2024 Ashutosh Jha. All rights reserved.</p>
+      </footer>
+
+      {isVisible && (
+        <Button
+          onClick={scrollToTop}
+          className="fixed bottom-4 right-4 rounded-full p-2"
         >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          <ChevronUp className="h-6 w-6" />
+        </Button>
+      )}
+    </div>
   );
 }
